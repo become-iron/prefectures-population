@@ -32,11 +32,17 @@ jobs:
       - name: install dependencies
         run: npm ci
 
+      - name: type check
+        run: npm run type-check
+
+      - name: lint
+        run: npm run lint
+
       - name: test
         run: npm run test:unit
 
       - name: build
-        run: npm run build:gh-pages
+        run: npm run build-only -- --base=/yumemi-test/
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
