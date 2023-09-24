@@ -1,0 +1,33 @@
+.y-card {
+  padding: 16px;
+  box-shadow:
+    0 1px 1px 0 rgba(0, 28, 36, 0.3),
+    1px 1px 1px 0 rgba(0, 28, 36, 0.15),
+    -1px 1px 1px 0 rgba(0, 28, 36, 0.15);
+  background: #fafafa;
+}
+
+.y-btn {
+  flex-shrink: 0;
+  background-color: #0a66c2;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &:hover,
+  &:focus {
+    background-color: #16437e;
+    color: #ffffff;
+  }
+
+  &:active {
+    background: #09223b;
+    color: rgb(255, 255, 255, 0.7);
+  }
+}
