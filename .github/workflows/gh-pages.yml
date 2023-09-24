@@ -42,7 +42,7 @@ jobs:
         run: npm run test:unit
 
       - name: build
-        run: npm run build-only -- base=/yumemi-test/
+        run: npm run build-only -- --base=/yumemi-test/
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
