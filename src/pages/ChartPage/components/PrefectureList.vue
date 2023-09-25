@@ -1,13 +1,32 @@
 <script setup lang="ts">
 import { computed, ref, unref } from "vue"
+import { useMobile } from "@/utils/composables"
+import { PopulationCompositionStatisticsType } from "@/services/api/resas/enums"
+import { populationCompositionStatisticsTypeToKey } from "@/services/api/resas/configurations"
 import YCheckbox from "@/components/YCheckbox.vue"
 import type { PrefectureModel } from "@/pages/ChartPage/ChartPage.vue"
-import { useMobile } from "@/utils/composables"
 
 const props = defineProps<{
   prefectures: PrefectureModel[]
+  statisticsType: PopulationCompositionStatisticsType
 }>()
-defineEmits(["togglePrefecture"])
+const emit = defineEmits(["togglePrefecture", "update:statisticsType"])
+
+const statisticsTypeModel = computed({
+  get() {
+    return props.statisticsType
+  },
+  set(value) {
+    emit("update:statisticsType", value)
+  },
+})
+
+const statisticsTypeOptions = [
+  PopulationCompositionStatisticsType.OVERALL,
+  PopulationCompositionStatisticsType.YOUNG,
+  PopulationCompositionStatisticsType.WORKING,
+  PopulationCompositionStatisticsType.ELDERLY,
+].map((value) => ({ value, label: populationCompositionStatisticsTypeToKey[value] }))
 
 const loading = computed(() => !unref(props.prefectures).length)
 const isMobile = useMobile()
@@ -34,6 +53,14 @@ const isOpened = ref(false)
       </div>
 
       <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">選ぶを都道府県</button>
+
+      <div>
+        <select v-model="statisticsTypeModel" class="y-select">
+          <option v-for="option of statisticsTypeOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
     </template>
   </div>
 </template>
@@ -49,20 +76,24 @@ const isOpened = ref(false)
     flex-direction: column;
   }
 
-  &.prefecture-list_mobile .list-wrapper {
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    padding: 16px;
-    background: #fafafa;
-    overflow: scroll;
+  &.prefecture-list_mobile {
+    justify-content: space-around;
 
-    button {
-      margin-top: 16px;
-      font-size: 24px;
+    .list-wrapper {
+      position: fixed;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 16px;
+      background: #fafafa;
+      overflow: scroll;
+
+      button {
+        margin-top: 16px;
+        font-size: 24px;
+      }
     }
   }
 

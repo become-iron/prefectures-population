@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
 import type { Ref } from "vue"
-import { POPULATION_STATISTICS_OVERALL_KEY } from "@/services/api/resas/constants"
+import { PopulationCompositionStatisticsType } from "@/services/api/resas/enums"
 import { ResasService } from "@/services/api/resas/client"
+import { populationCompositionStatisticsKeyToType } from "@/services/api/resas/configurations"
 import { resas } from "@/services/api/resas"
 import PrefectureList from "@/pages/ChartPage/components/PrefectureList.vue"
 import StatisticsChart from "@/pages/ChartPage/components/StatisticsChart.vue"
@@ -10,7 +11,14 @@ import CredentialsForm from "@/pages/ChartPage/components/CredentialsForm.vue"
 
 const resasApiKeyEntered = ref(ResasService.hasApiKey)
 
-export type PrefectureModel = { code: number; name: string; visible: boolean; data: number[] | null }
+const statisticsType = ref(PopulationCompositionStatisticsType.OVERALL)
+
+export type PrefectureModel = {
+  code: number
+  name: string
+  visible: boolean
+  data: Record<PopulationCompositionStatisticsType, number[]> | null
+}
 const prefectures: Ref<PrefectureModel[]> = ref([])
 const prefectureIndex = computed(() =>
   prefectures.value.reduce<Record<number, PrefectureModel>>((acc, prefecture) => {
@@ -21,7 +29,7 @@ const prefectureIndex = computed(() =>
 
 const visiblePrefectureStatistics = computed(() =>
   Object.values(prefectures.value).reduce<{ name: string; data: number[] }[]>((acc, { name, visible, data }) => {
-    visible && data && acc.push({ name, data })
+    visible && data?.[statisticsType.value] && acc.push({ name, data: data[statisticsType.value] })
     return acc
   }, []),
 )
@@ -58,9 +66,14 @@ async function togglePrefectureGraph(visible: boolean, prefectureCode: number) {
 
   const result = await resas.getPopulationComposition({ prefCode: prefectureCode, cityCode: "-" })
   const prefectureData = result.data.result.data
-  prefectureModel.data = prefectureData
-    .find((statistics) => statistics.label === POPULATION_STATISTICS_OVERALL_KEY)!
-    .data.map((yearData) => yearData.value)
+  prefectureModel.data = prefectureData.reduce(
+    (acc, data) => {
+      const statisticsType = populationCompositionStatisticsKeyToType[data.label]
+      acc[statisticsType] = data.data.map((yearData) => yearData.value)
+      return acc
+    },
+    {} as Record<PopulationCompositionStatisticsType, number[]>,
+  )
 }
 
 function init() {
@@ -76,7 +89,11 @@ init()
     <h1 class="chart-page__title">都道府県人口数</h1>
 
     <template v-if="resasApiKeyEntered">
-      <PrefectureList :prefectures="prefectures" @toggle-prefecture="togglePrefectureGraph" />
+      <PrefectureList
+        v-model:statistics-type="statisticsType"
+        :prefectures="prefectures"
+        @toggle-prefecture="togglePrefectureGraph"
+      />
       <StatisticsChart :prefectures="visiblePrefectureStatistics" />
     </template>
 

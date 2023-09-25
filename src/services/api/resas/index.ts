@@ -1,7 +1,8 @@
 // https://opendata.resas-portal.go.jp/docs/api/v1/index.html
 
-import { resasClient } from "@/services/api/resas/client"
 import type { AxiosResponse } from "axios"
+import { PopulationCompositionStatisticsType } from "@/services/api/resas/enums"
+import { resasClient } from "@/services/api/resas/client"
 
 type GetPrefecturesResult = {
   message: null | string
@@ -20,7 +21,7 @@ type GetPopulationCompositionResult = {
   result: {
     boundaryYear: number
     data: {
-      label: string
+      label: PopulationCompositionStatisticsType
       data: {
         year: number
         value: number
