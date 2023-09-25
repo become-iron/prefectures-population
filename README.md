@@ -1,4 +1,4 @@
-# yumemi-test
+# yumemi-test [![codecov](https://codecov.io/github/become-iron/yumemi-test/graph/badge.svg?token=AWCBNDBSN0)](https://codecov.io/github/become-iron/yumemi-test)
 
 ## Overview
 
