@@ -30,7 +30,7 @@ const isOpened = ref(false)
           />
         </div>
 
-        <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">次</button>
+        <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">確認</button>
       </div>
 
       <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">選ぶを都道府県</button>
