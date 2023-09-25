@@ -17,7 +17,7 @@ const apiKey = ref()
     <div class="credentials-form__inputs">
       <input v-model="apiKey" type="text" />
 
-      <button class="y-btn" @click="$emit('entered', apiKey)">次</button>
+      <button class="y-btn" @click="$emit('entered', apiKey)">確認</button>
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@ const baseChartOptions: Highcharts.Options = {
     type: "spline",
     scrollablePlotArea: {
       minWidth: 700,
-      scrollPositionX: 1,
+      scrollPositionX: 1, // scroll to the end
     },
   },
   xAxis: [
@@ -53,9 +53,6 @@ const baseChartOptions: Highcharts.Options = {
   },
   tooltip: {
     shared: true,
-  },
-  plotOptions: {
-    series: {},
   },
   credits: {
     enabled: false,
