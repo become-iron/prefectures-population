@@ -28,7 +28,7 @@ VITE_RESAS_API_KEY=6UxrytHy48tPWUdrbEobXmoew8brj8
 
 ### CI/CD
 
-[Github Actions](.github/workflows) are used to automatically build, test, and deploy an application on [Github Pages](https://become-iron.github.io/yumemi-test/).
+[Github Actions](.github/workflows) are used to automatically build, test, and deploy the application to [Github Pages](https://become-iron.github.io/yumemi-test/).
 
 ## Project Setup
 
