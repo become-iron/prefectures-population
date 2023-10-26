@@ -52,7 +52,7 @@ const isOpened = ref(false)
         <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">確認</button>
       </div>
 
-      <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">選ぶを都道府県</button>
+      <button v-if="isMobile" class="y-btn" @click="isOpened = !isOpened">都道府県を選ぶ</button>
 
       <div>
         <select v-model="statisticsTypeModel" class="y-select">

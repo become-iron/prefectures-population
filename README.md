@@ -1,4 +1,4 @@
-# yumemi-test [![codecov](https://codecov.io/github/become-iron/yumemi-test/graph/badge.svg?token=AWCBNDBSN0)](https://codecov.io/github/become-iron/yumemi-test)
+# prefectures-population [![codecov](https://codecov.io/github/become-iron/prefectures-population/graph/badge.svg?token=AWCBNDBSN0)](https://codecov.io/github/become-iron/prefectures-population)
 
 ## Overview
 
@@ -28,7 +28,7 @@ VITE_RESAS_API_KEY=6UxrytHy48tPWUdrbEobXmoew8brj8
 
 ### CI/CD
 
-[Github Actions](.github/workflows) are used to automatically build, test, and deploy the application to [Github Pages](https://become-iron.github.io/yumemi-test/).
+[Github Actions](.github/workflows) are used to automatically build, test, and deploy the application to [Github Pages](https://become-iron.github.io/prefectures-population/).
 
 ## Project Setup
 

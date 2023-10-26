@@ -25,7 +25,7 @@ const baseChartOptions: Highcharts.Options = {
   chart: {
     type: "spline",
     scrollablePlotArea: {
-      minWidth: 700,
+      minWidth: 700,  // minimal size for the appropriate visualization of data
       scrollPositionX: 1, // scroll to the end
     },
   },
@@ -61,7 +61,7 @@ const baseChartOptions: Highcharts.Options = {
     rules: [
       {
         condition: {
-          maxWidth: 400,
+          maxWidth: 400,  // adapt the graph to the very small screens
         },
         chartOptions: {
           legend: {
